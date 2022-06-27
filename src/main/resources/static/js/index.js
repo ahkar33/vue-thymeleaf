@@ -2,7 +2,6 @@
 const app = Vue.createApp({
     data() {
         return {
-            message: 'hello world',
             users: [],
             userName: '',
             userAddress: '',
@@ -29,6 +28,7 @@ const app = Vue.createApp({
         },
         updateUser(event, userId) {
             event.preventDefault();
+            console.log(userId)
             let data = { userName: this.userName, userAddress: this.userAddress };
             axios
                 .put(`http://localhost:8080/updateUser/${userId}/`, data)
@@ -45,8 +45,6 @@ const app = Vue.createApp({
                     this.users = res.data;
                 })
                 .catch(error => console.log(error))
-            this.userName = "";
-            this.userAddress = "";
         }
     },
     mounted() {
