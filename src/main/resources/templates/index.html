@@ -11,11 +11,28 @@
 <body>
 
     <div id="app">
-        <div v-for="item in items" class="text-center">
-            <div v-if="item.id < 5">
-                <h4>Title - {{ item.title }}</h4>
-                <p>UserId - {{ item.userId }}</p>
+        <div class="text-center mt-3 mb-3">
+            <input v-model="userName" placeholder="name" required />
+            <input v-model="userAddress" placeholder="address" required />
+            <button @click="postUser" class="btn btn-primary btn-sm">Submit</button>
+        </div>
+        <div v-for="user in users" :key="user.userId" class="text-center">
+            <p>Name - {{ user.userName }} </p>
+            <p>Address - {{ user.userAddress }} </p>
+            <button @click="openUpdate" class="btn btn-success me-2">
+                Update
+            </button>
+            <div v-if="isOpen" class="text-center mt-3 mb-3">
+                <input v-model="userName" placeholder="name" />
+                <input v-model="userAddress" placeholder="address" />
+                    <button @click="updateUser($event, user.userId)" class="btn btn-success">
+                        Submit
+                    </button>
             </div>
+            <button @click="deleteUser($event, user.userId)" class="btn btn-danger ms-2">
+                Delete
+            </button>
+            <hr>
         </div>
     </div>
 
