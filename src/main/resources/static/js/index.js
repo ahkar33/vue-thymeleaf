@@ -6,7 +6,6 @@ const app = Vue.createApp({
             userId: '',
             userName: '',
             userAddress: '',
-            editUser: null,
             isEdit: false
         }
     },
@@ -16,7 +15,7 @@ const app = Vue.createApp({
             let name = this.userName.replace(/\s/g, "");
             let address = this.userAddress.replace(/\s/g, "");
             if (name.length > 0 && address.length > 0) {
-                if (this.editUser == null) {
+                if (!this.isEdit) {
                     let data = { userName: this.userName, userAddress: this.userAddress };
                     axios
                         .post('http://localhost:8080/addUser', data)
@@ -31,7 +30,6 @@ const app = Vue.createApp({
                         .put(`http://localhost:8080/updateUser/${userId}/`, data)
                         .then(() => this.getData())
                         .catch(error => console.log(error));
-                    this.editUser = null;
                     this.isEdit = false;
                     this.userName = "";
                     this.userAddress = "";
@@ -43,19 +41,16 @@ const app = Vue.createApp({
             axios
                 .delete(`http://localhost:8080/deleteUser/${userId}`)
                 .then(() => this.getData())
-                .then(() => console.log("foo"))
                 .catch(error => console.log(error));
         },
         updateUser(event, index) {
             event.preventDefault();
-            this.editUser = index;
             this.isEdit = true;
             this.userId = this.users[index].userId;
             this.userName = this.users[index].userName;
             this.userAddress = this.users[index].userAddress;
         },
         cancelUpdate() {
-            this.editUser = null;
             this.isEdit = false;
             this.userId = "";
             this.userName = "";

@@ -29,14 +29,14 @@
                     </td>
                     <td>
                         <button @click="postUser" class="btn btn-primary btn-sm" :class="{'btn-warning': isEdit}">
-                            <span v-if="editUser == null">
+                            <span v-if="!isEdit">
                                 Submit
                             </span>
                             <span v-else>
                                 Update
                             </span>
                         </button>
-                        <button v-if="editUser != null" @click="cancelUpdate" class="btn btn-sm btn-secondary ms-1">
+                        <button v-if="isEdit" @click="cancelUpdate" class="btn btn-sm btn-secondary ms-1">
                             Cancel
                         </button>
                     </td>
