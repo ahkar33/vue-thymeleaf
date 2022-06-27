@@ -15,8 +15,8 @@ const app = Vue.createApp({
             let name = this.userName.replace(/\s/g, "");
             let address = this.userAddress.replace(/\s/g, "");
             if (name.length > 0 && address.length > 0) {
+                let data = { userName: this.userName, userAddress: this.userAddress };
                 if (!this.isEdit) {
-                    let data = { userName: this.userName, userAddress: this.userAddress };
                     axios
                         .post('http://localhost:8080/addUser', data)
                         .then(() => this.getData())
@@ -24,7 +24,6 @@ const app = Vue.createApp({
                     this.userName = "";
                     this.userAddress = "";
                 } else {
-                    let data = { userName: this.userName, userAddress: this.userAddress };
                     let userId = this.userId;
                     axios
                         .put(`http://localhost:8080/updateUser/${userId}/`, data)
