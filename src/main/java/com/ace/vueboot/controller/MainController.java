@@ -9,4 +9,10 @@ public class MainController {
     public String sayHello(){
         return "index";
     }
+
+    @GetMapping("/chart")
+    public String showChart(){
+        return "chart";
+    }
+
 }
